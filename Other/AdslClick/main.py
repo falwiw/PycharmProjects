@@ -9,21 +9,24 @@ LOG_LINE_NUM = 0
 class MY_GUI():
     def __init__(self,init_window_name):
         self.init_window_name = init_window_name
+        self.screenwidth = self.init_window_name.winfo_screenwidth()
+        self.screenheight = self.init_window_name.winfo_screenheight()
 
     #获取PC分辨率，计算取窗口位置
     def center_window(self, root_wondow, width, height):
-        self.screenwidth = self.init_window_name.winfo_screenwidth()
-        self.screenheight = self.init_window_name.winfo_screenheight()
         self.size = '%dx%d+%d+%d' % (width, height, (self.screenwidth - width) / 2, (self.screenheight - height) / 2)
         print(self.size)
-
         root_wondow.geometry(self.size)
 
     # 设置窗口
     def set_init_window(self):
         self.init_window_name.title("登陆器测试")
         # self.init_window_name.geometry("550x340")
-        self.center_window(self.init_window_name, 550, 340)
+        self.screenwidth = self.init_window_name.winfo_screenwidth()
+        self.screenheight = self.init_window_name.winfo_screenheight()
+        self.window_size = ("550x340+%d+%d" % (((self.screenwidth-550)/2), ((self.screenheight)-340)/2))
+        self.init_window_name.geometry(self.window_size)
+
 
 
         #LabelFrame 1 登陆及帐户信息
@@ -44,8 +47,8 @@ class MY_GUI():
         #LabelFrame 2 日志信息显示
         self.lf2 = LabelFrame(self.init_window_name, text="日志信息", width=240, height=155)
         self.lf2.place(x=10, y=170)
-        self.log_data_Text = Text(self.lf2, width=32, height=10)  # 日志框
-        self.log_data_Text.place(x=3, y=0)
+        self.log_data_Text = Text(self.lf2, width=37, height=11, font=("", 8, "normal"), fg="#ee7b00")  # 日志框
+        self.log_data_Text.place(x=5, y=0)
 
 
         # LabelFrame 3
@@ -122,37 +125,6 @@ class MY_GUI():
         # self.init_window_name.mainloop()
 
 
-        
-    #注册模块
-    def sign_up(self):
-        self.window_sign_up = Toplevel(self.init_window_name)
-        # self.window_sign_up.geometry('300x200')
-        self.center_window(self.window_sign_up, 300, 200)
-        self.window_sign_up.title('注册窗口')
-        self.sign_up_lf = LabelFrame(self.window_sign_up, text="填写注册信息", width=272, height=170)
-        self.sign_up_lf.place(x=15, y=10)
-        self.new_name = StringVar()  # 将输入的注册名赋值给变量
-        self.new_name.set('example@python.com')  # 将最初显示定为'example@python.com'
-        self.init_window_name = Label(self.sign_up_lf, text='用户名：').place(x=20, y=10)  # 将`User name:`放置在坐标（10,10）。
-        self.entry_new_name = Entry(self.sign_up_lf, textvariable=self.new_name, width="23")  # 创建一个注册名的`entry`，变量为`new_name`
-        self.entry_new_name.place(x=80, y=10)  # `entry`放置在坐标（150,10）.
-
-        self.new_pwd = StringVar()
-        Label(self.sign_up_lf, text='密   码：').place(x=20, y=40)
-        self.entry_usr_pwd = Entry(self.sign_up_lf, textvariable=self.new_pwd, show='*', width="23")
-        self.entry_usr_pwd.place(x=80, y=40)
-
-        self.new_pwd_confirm = StringVar()
-        Label(self.sign_up_lf, text='确   认：').place(x=20, y=70)
-        self.entry_usr_pwd_confirm = Entry(self.sign_up_lf, textvariable=self.new_pwd_confirm, show='*', width="23")
-        self.entry_usr_pwd_confirm.place(x=80, y=70)
-        self.btn_comfirm_sign_up = Button(self.sign_up_lf, text='提   交', width="8")
-        self.btn_comfirm_sign_up.place(x=102, y=110)
-
-
-
-
-
     # 获取当前时间
     def get_current_time(self):
         current_time = time.strftime('%m-%d %H:%M:%S', time.localtime(time.time()))
@@ -170,13 +142,102 @@ class MY_GUI():
             self.log_data_Text.delete(1.0, 2.0)
             self.log_data_Text.insert(END, logmsg_in)
 
+    #注册模块
+    def sign_up(self):
+        self.window_sign_up = Toplevel(self.init_window_name)
+        # self.window_sign_up.geometry('300x200')
+        self.window_size = ("300x200+%d+%d" % (((self.screenwidth - 550) / 2+552), ((self.screenheight) - 200) / 2))
+        self.window_sign_up.geometry(self.window_size)
+        self.window_sign_up.title('注册窗口')
+
+        self.sign_up_lf = LabelFrame(self.window_sign_up, text="填写注册信息", width=272, height=170)
+        self.sign_up_lf.place(x=15, y=10)
+        self.new_name = StringVar()  # 将输入的注册名赋值给变量
+        self.new_name.set("admin")  # 将最初显示定为'example@python.com'
+        self.init_window_name = Label(self.sign_up_lf, text='用户名：').place(x=20, y=10)  # 将`User name:`放置在坐标（10,10）。
+        self.entry_new_name = Entry(self.sign_up_lf, textvariable=self.new_name, width="23")  # 创建一个注册名的`entry`，变量为`new_name`
+        self.entry_new_name.place(x=80, y=10)  # `entry`放置在坐标（150,10）.
+
+        self.new_pwd = StringVar()
+        Label(self.sign_up_lf, text='密   码：').place(x=20, y=40)
+        self.entry_usr_pwd = Entry(self.sign_up_lf, textvariable=self.new_pwd, show='*', width="23")
+        self.entry_usr_pwd.place(x=80, y=40)
+
+        self.new_pwd_confirm = StringVar()
+        Label(self.sign_up_lf, text='确   认：').place(x=20, y=70)
+        self.entry_usr_pwd_confirm = Entry(self.sign_up_lf, textvariable=self.new_pwd_confirm, show='*', width="23")
+        self.entry_usr_pwd_confirm.place(x=80, y=70)
+        self.btn_comfirm_sign_up = Button(self.sign_up_lf, text='提   交', width="8", command=self.sign_in)
+        self.btn_comfirm_sign_up.place(x=102, y=110)
+
+    #MD5加密函数
+    def md5(self, string):
+        m2 = hashlib.md5()
+        m2.update(("++" + string + "--").encode("utf-8"))
+        return m2.hexdigest()
+
+    # 注册功能功能函数
+    def sign_in(self):
+        sign_in_name = self.entry_new_name.get()
+        sign_in_pwd = self.entry_usr_pwd.get()
+        sign_in_pwd_confirm = self.entry_usr_pwd_confirm.get()
+        print("您提交的注册信息为：帐号：%s, 密码：%s, 确认密码：%s" % (sign_in_name, sign_in_pwd, sign_in_pwd_confirm))
+        print(len(sign_in_name))
+        sign_in_name_len = len(sign_in_name)
+        print(sign_in_name_len)
+        if sign_in_name_len < 5:
+            self.write_log_to_Text("INFO:用户名<5位！")  # 登陆成功，在日志窗口显示
+            messagebox.showerror('错误', "用户名不能小于5位！")
+            return
+        elif sign_in_name_len > 15:
+            self.write_log_to_Text("INFO:用户名>15位！")  # 登陆成功，在日志窗口显示
+            messagebox.showerror('错误', "用户名不能大于15位！")
+            return
+        elif sign_in_pwd != sign_in_pwd_confirm:
+            self.write_log_to_Text("INFO:密码和确认密码必需一致！")  # 在日志窗口显示
+            messagebox.showinfo('错误', '密码和确认密码必需一致！')
+            return
+
+        # 打开数据库连接
+        db = pymysql.connect("122.114.13.199", "360Click", "LOVElove12354", "360Click", charset='utf8')
+        # 使用cursor()方法创建一个游标对象
+        cursor = db.cursor()
+        # 使用execute()方法执行SQL语句
+        sql1 = "SELECT * FROM python_user WHERE user='%s'"
+        sql2 = "SELECT * FROM python_user WHERE user='%s'"
+        try:
+            cursor.execute(sql1 % sign_in_name)
+            # 使用execute()方法执行SQL语句
+            data = cursor.fetchall()
+            sql_user = data[0][1]
+            sql_pwd = data[0][2]
+            print("数据库查询结果：", sql_user, sql_pwd)
+
+            if sign_in_name == sql_user:    #判断用户输入用户是否存在
+                self.write_log_to_Text("INFO:“%s”该用户已存在，请重新输入！" % sign_in_name)  # 登陆成功，在日志窗口显示
+                messagebox.showerror('错误', "“%s”该用户已存在，请重新输入！" % sign_in_name)
+                return
+        except IndexError:
+            print("出错了！")
+            """
+            self.write_log_to_Text("INFO:帐号不存在")  # 在日志窗口显示
+            self.is_sign_up = messagebox.askyesno('帐号不存在', '您要现在注册吗？')
+            # 提示需不需要注册新用户
+            if self.is_sign_up:
+                self.sign_up()
+            """
+        finally:
+            # 关闭游标和数据库的连接
+            cursor.close()
+            db.close()
+
+
+
     # 登陆功能函数
     def usr_login(self):
         usr_name = self.var_usr_name.get()
         usr_pwd = self.var_usr_pwd.get()
-        m2 = hashlib.md5()
-        m2.update(("++"+usr_pwd+"--").encode("utf-8"))
-        usr_pwd = m2.hexdigest()
+        usr_pwd = self.md5(usr_pwd) #调用MD5函数
         # print("您输入的帐号是:%s ，密码是：%s" % (usr_name, usr_pwd))
         if len(usr_name) == 0 or len(usr_pwd) == 0:
             # return messagebox.showerror('错误', '您还没有输入帐号或密码！')
