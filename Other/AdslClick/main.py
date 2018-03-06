@@ -120,6 +120,8 @@ class MY_GUI():
         # 组件隐藏
         # lf1.pack_forget()
         # self.init_window_name.mainloop()
+
+
         
     #注册模块
     def sign_up(self):
