@@ -6,7 +6,6 @@ import win32gui
 import os
 import random       #随机数生成模块
 import re
-
 from module.method import *
 from selenium import webdriver    #载入selenium模块
 from time import sleep

@@ -10,13 +10,13 @@ import random       #随机数生成模块
 import re
 from selenium import webdriver    #载入selenium模块
 from time import sleep
+from module.method import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from urllib import request       #载入urllib模块,用来获取代理IP
 chrome_Options = webdriver.ChromeOptions()  # 浏览器参数
-
 
 # GUI界面
 LOG_LINE_NUM = 0
@@ -325,6 +325,16 @@ class MY_GUI():
             db.close()
 
 
+#广告点击类
+class ADS_CLICK():
+    def __init__(self, start_click):
+        self.start_click = start_click
+
+
+
+
+
+
 
 # 实例化GUI
 def gui_start():
@@ -338,3 +348,12 @@ def gui_start():
 gui_start()
 
 
+
+# 实例化点击类
+def click_start():
+    adsUrl = "text/links.txt"
+    click_words = "text/words.txt"
+    open_text = OpenText(adsUrl, 'links')
+
+
+click_start()
