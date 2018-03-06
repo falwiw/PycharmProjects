@@ -131,12 +131,12 @@ class WaitOpen(object):
                                 print('该页面未正常打开', url)
                                 driver.close()
 """
-
+"""
 if __name__ == '__main__':
     adsUrl = "text/links.txt"
     clickWords = "text/words.txt"
     OpenText = OpenText(adsUrl, 'links')
-    # print(OpenText.txtlist())
+    print(OpenText.txtlist())
     print(OpenText.total())
     chrome_Options = webdriver.ChromeOptions()  # 浏览器参数
     driver = webdriver.Chrome(chrome_options=chrome_Options)
@@ -145,3 +145,4 @@ if __name__ == '__main__':
     a =Elements(ads, 'ls')
     print(a.elementslist())
 
+"""
