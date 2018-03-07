@@ -12,21 +12,24 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from urllib import request       #载入urllib模块,用来获取代理IP
 chrome_Options = webdriver.ChromeOptions()  # 浏览器参数
-# from .method import *
-
+from Other.method import *
 
 #广告点击类
-# class StartClick():
+SSP_1 = 1
+KEW_WORD = 1
+class StartClick():
+    def __init__(self,init_window_name):
+        self.init_window_name = init_window_name
 
-print(sys.path)
 
-"""
-def ads_start(self):
+
+
+def ads_start():
     adsUrl = "text/links.txt"
     clickWords = "text/words.txt"
     opentext = OpenText(adsUrl, 'links')
-    # print(OpenText.txtlist())
-    print(OpenText.total())
+    print(opentext.txtlist())
+    print(opentext.total())
     chrome_Options = webdriver.ChromeOptions()  # 浏览器参数
     driver = webdriver.Chrome(chrome_options=chrome_Options)
     driver.get('http://www.iqly.cn')
@@ -34,4 +37,3 @@ def ads_start(self):
     a =Elements(ads, 'ls')
     print(a.elementslist())
 
-"""
